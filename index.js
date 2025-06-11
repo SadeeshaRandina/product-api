@@ -8,18 +8,11 @@ const app = express();
 // Middleware
 app.use(bodyParser.json());
 
-// const authRoutes = require('./routes/auth');
-// const productRoutes = require('./routes/product');
+const authRoutes = require('./routes/auth');
+const productRoutes = require('./routes/product');
 
-// app.use("/api/auth", authRoutes);
-// app.use("/api/product", productRoutes);
-
-// // CORS configuration
-// app.use(cors({
-//     origin: '*', // Allow all origins
-//     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
-//     allowedHeaders: ['Content-Type', 'Authorization'] // Allowed headers
-// }));
+app.use("/api/auth", authRoutes);
+app.use("/api/product", productRoutes);
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {
