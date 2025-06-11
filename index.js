@@ -5,7 +5,7 @@ require('dotenv').config();
 const cors = require('cors');
 
 const app = express();
-app.use(cors()); // Enable CORS for all routes
+app.use(cors());
 const PORT = process.env.PORT || 3000;
 
 // Middleware
@@ -23,7 +23,6 @@ app.use((err, req, res, next) => {
 });
 
 // MongoDB connection
-// Connect to MongoDB and start the server
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true, useUnifiedTopology: true
 }).then(() => {

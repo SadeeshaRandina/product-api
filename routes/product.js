@@ -4,7 +4,7 @@ const Product = require('../models/product');
 
 // CREATE
 router.post('/', async (req, res) => {
-  const { prod_id, name, price, quantity } = req.body; // Include prod_id
+  const { prod_id, name, price, quantity } = req.body;
   
   // Check for duplicate prod_id
   const existingProduct = await Product.findOne({ prod_id });
@@ -25,28 +25,28 @@ router.get('/', async (req, res) => {
 
 // READ ONE
 router.get('/:id', async (req, res) => {
-  const prodId = Number(req.params.id); // Convert to number
+  const prodId = Number(req.params.id);
   if (isNaN(prodId)) {
     return res.status(400).json({ message: 'Invalid product ID' });
   }
 
-  const product = await Product.findOne({ prod_id: prodId }); // Query by prod_id
+  const product = await Product.findOne({ prod_id: prodId });
   if (product) res.json(product);
   else res.status(404).json({ message: 'Product not found' });
 });
 
 // UPDATE
 router.put('/:id', async (req, res) => {
-  const prodId = Number(req.params.id); // Convert to number
+  const prodId = Number(req.params.id);
   if (isNaN(prodId)) {
     return res.status(400).json({ message: 'Invalid product ID' });
   }
 
   const { name, price, quantity } = req.body;
   const product = await Product.findOneAndUpdate(
-    { prod_id: prodId }, // Filter by prod_id
+    { prod_id: prodId }, 
     { name, price, quantity },
-    { new: true } // Return updated document
+    { new: true }
   );
 
   if (product) res.json(product);
@@ -55,12 +55,12 @@ router.put('/:id', async (req, res) => {
 
 // DELETE
 router.delete('/:id', async (req, res) => {
-  const prodId = Number(req.params.id); // Convert to number
+  const prodId = Number(req.params.id);
   if (isNaN(prodId)) {
     return res.status(400).json({ message: 'Invalid product ID' });
   }
 
-  const product = await Product.findOneAndDelete({ prod_id: prodId }); // Delete by prod_id
+  const product = await Product.findOneAndDelete({ prod_id: prodId });
   if (product) res.json({ message: 'Product deleted' });
   else res.status(404).json({ message: 'Product not found' });
 });
