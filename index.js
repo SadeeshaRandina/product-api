@@ -2,18 +2,25 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require('dotenv').config();
+const cors = require('cors');
 
 const app = express();
+app.use(cors()); // Enable CORS for all routes
 const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(bodyParser.json());
 
-const authRoutes = require('./routes/auth');
 const productRoutes = require('./routes/product');
+const userRoutes = require('./routes/users');
 
-app.use("/api/auth", authRoutes);
-app.use("/api/product", productRoutes);
+app.use('/users', userRoutes);
+app.use("/product", productRoutes);
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
 
 // MongoDB connection
 // Connect to MongoDB and start the server
