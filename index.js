@@ -17,11 +17,6 @@ const userRoutes = require('./routes/users');
 app.use('/users', userRoutes);
 app.use("/product", productRoutes);
 
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
-});
-
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true, useUnifiedTopology: true
